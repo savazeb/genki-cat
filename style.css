@@ -10,6 +10,11 @@ body {
 
 * {
     font-family: 'DotGothic16', sans-serif;
+    cursor: grab;
+}
+
+*:active {
+    cursor: grabbing;
 }
 
 /* Optional styles for the centered image */
@@ -29,6 +34,10 @@ div button {
 span {
     font-size: x-large;
     color: blueviolet;
+}
+
+div, span {
+    margin-bottom: 10px;
 }
 
 #balloon-container {

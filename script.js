@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         createFireworks();
 
         // Add a funny message when the "はい" button is clicked
-        showFunnyMessage("Wow! You're so positive! 🌈");
+        showFunnyMessage("すごい！ポジティブなあなたに感動！💖");
     });
 
     // Add a click event listener to the "いいえ" button
