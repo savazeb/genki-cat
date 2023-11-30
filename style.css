@@ -6,6 +6,7 @@ body {
     height: 100vh; /* 100% of the viewport height */
     margin: 0;
     background-color: #f0f0f0; /* Optional background color */
+    user-select: none;
 }
 
 * {

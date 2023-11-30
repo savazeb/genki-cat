@@ -1,7 +1,5 @@
 const duration = 5; // seconds
 
-const balloonContainer = document.getElementById("balloon-container");
-
 function random(num) {
     return Math.floor(Math.random() * num);
 }
@@ -22,21 +20,27 @@ function getRandomStyles() {
   `;
 }
 
-function createBalloon() {
+function createBalloon(balloonContainer) {
     var balloon = document.createElement("div");
     balloon.className = "balloon";
     balloon.style.cssText = getRandomStyles();
     balloonContainer.append(balloon);
 
     setTimeout(() => {
-        balloon.remove();
+        balloonContainer.remove();
     }, duration * 1000);
 }
 
 function createBalloons(num) {
+    var balloonContainer = document.createElement("div");
+    balloonContainer.id = "balloon-container";
+    document.body.appendChild(balloonContainer);
+
     for (var i = num; i > 0; i--) {
         // Use requestAnimationFrame for smoother animations
-        requestAnimationFrame(createBalloon);
+        requestAnimationFrame(function () {
+            createBalloon(balloonContainer);
+        });
     }
 }
 
@@ -55,13 +59,6 @@ function createFireworks() {
             }, duration * 1000);
         })();
     }
-}
-
-function removeBalloons() {
-    balloonContainer.style.opacity = 0;
-    setTimeout(() => {
-        balloonContainer.remove();
-    }, duration * 1000);
 }
 
 function moveButtonRandomly(button) {
@@ -123,32 +120,55 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get the image element
     var imageElement = document.querySelector('img');
 
-    // Add a click event listener to the image element
-    imageElement.addEventListener('click', function () {
+    // Smartphone compability
+    var isTouchDevice = 'ontouchstart' in document.documentElement;
+    var isMouseOver = false;
+
+    var mouseLeaveTimeout;
+
+    // Add a mouseover event listener to the image element
+    imageElement.addEventListener('mouseover', function () {
+        if (!isTouchDevice) {
+            isMouseOver = true;
+            imageElement.src = 'public/cat-state-3.gif';
+        }
+    });
+
+    // Add a mouseleave event listener to the image element
+    imageElement.addEventListener('mouseleave', function () {
+        if (!isTouchDevice) {
+            clearTimeout(mouseLeaveTimeout);
+
+            // Set a delay before changing the image source on mouseleave
+            mouseLeaveTimeout = setTimeout(function () {
+                isMouseOver = false;
+                imageElement.src = 'public/cat-state-1.gif';
+            }, 300); // Adjust the delay as needed
+        }
+    });
+
+    // Add a touchstart event listener to the image element
+    imageElement.addEventListener('touchstart', function () {
+        if (isMouseOver) {
+            return;
+        }
+
+        isMouseOver = false;
+
         // Change the image source when the image is clicked
         imageElement.src = 'public/cat-state-3.gif';
 
         // Reset the image source after 3 seconds
         setTimeout(function () {
-            if (!imageElement.src.includes('public/cat-state-2.gif'))
+            if (!imageElement.src.includes('public/cat-state-2.gif')) {
                 imageElement.src = 'public/cat-state-1.gif';
+            }
         }, 1500);
-    });
-
-    // Add a mouseover event listener to the image element
-    imageElement.addEventListener('mouseover', function () {
-        imageElement.src = 'public/cat-state-3.gif';
-    });
-
-    // Add a mouseleave event listener to the image element
-    imageElement.addEventListener('mouseleave', function () {
-        imageElement.src = 'public/cat-state-1.gif';
     });
 
     // Add a click event listener to the "はい" button
     yesButton.addEventListener('click', function () {
-        // imageElement.src = 'public/cat-state-2.gif';
-
+        // Show dancing cat
         showDancingCat(imageElement);
 
         // Create floating baloons
@@ -158,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
         createFireworks();
 
         // Add a funny message when the "はい" button is clicked
-        showFunnyMessage("すごい！ポジティブなあなたに感動！💖");
+        showFunnyMessage("すごい！ポジティブな君に感動！💖");
     });
 
     // Add a click event listener to the "いいえ" button
