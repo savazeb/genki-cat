@@ -123,6 +123,28 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get the image element
     var imageElement = document.querySelector('img');
 
+    // Add a click event listener to the image element
+    imageElement.addEventListener('click', function () {
+        // Change the image source when the image is clicked
+        imageElement.src = 'public/cat-state-3.gif';
+
+        // Reset the image source after 3 seconds
+        setTimeout(function () {
+            if (!imageElement.src.includes('public/cat-state-2.gif'))
+                imageElement.src = 'public/cat-state-1.gif';
+        }, 1500);
+    });
+
+    // Add a mouseover event listener to the image element
+    imageElement.addEventListener('mouseover', function () {
+        imageElement.src = 'public/cat-state-3.gif';
+    });
+
+    // Add a mouseleave event listener to the image element
+    imageElement.addEventListener('mouseleave', function () {
+        imageElement.src = 'public/cat-state-1.gif';
+    });
+
     // Add a click event listener to the "はい" button
     yesButton.addEventListener('click', function () {
         // imageElement.src = 'public/cat-state-2.gif';
