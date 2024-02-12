@@ -142,7 +142,29 @@ function showCryingCat(referenceImage) {
     }, duration * 1000);
 }
 
+function preloadImages() {
+    // Array to store image URLs
+    const imageUrls = [
+        'public/cat-state-1.gif',
+        'public/cat-state-2.gif',
+        'public/cat-state-3.gif',
+        'public/cat-state-4.gif',
+    ];
+
+    // Iterate through each image URL
+    imageUrls.forEach(url => {
+        // Create a new image element
+        const img = new Image();
+
+        // Set the image source to preload the image
+        img.src = url;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+    // Preload images when the window loads
+    preloadImages();
+
     // Get the "はい" button element
     var yesButton = document.querySelector('button:nth-of-type(1)');
     var noButton = document.querySelector('button:nth-of-type(2)');
