@@ -188,9 +188,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Change the image source when the image is clicked
         imageElement.src = 'public/cat-state-3.gif';
 
-        // Reset the image source after 3 seconds
+        // Reset the image source after (n) seconds
         setTimeout(function () {
-            if (!imageElement.src.includes('public/cat-state-2.gif')) {
+            if (!imageElement.src.includes('public/cat-state-2.gif')
+                && !imageElement.src.includes('public/cat-state-4.gif')) {
                 imageElement.src = 'public/cat-state-1.gif';
             }
         }, 1500);
