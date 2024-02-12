@@ -17,6 +17,10 @@
         href="public/favicon.gif"
         type="image/x-icon">
 
+    <!-- Manifest -->
+    <link rel="manifest"
+        href="public/manifest.json">
+
     <!-- Google Fonts -->
     <link rel="preconnect"
         href="https://fonts.googleapis.com">
@@ -45,6 +49,12 @@
 
     <!-- Include your JavaScript file at the end of the body for better performance -->
     <script src="script.js"></script>
+    <script>
+        // Add service worker for pwa
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("sw.js");
+        }
+    </script>
 </body>
 
 </html>
