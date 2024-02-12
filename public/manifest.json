@@ -21,6 +21,6 @@
     "lang": "jp-ja",
     "name": "Genki Cat",
     "short_name": "Genki Cat",
-    "start_url": "/",
+    "start_url": "https://savazeb.github.io/genki-cat",
     "scope": "/"
 }
