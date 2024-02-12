@@ -3,10 +3,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 100% of the viewport height */
+    height: 100vh;
+    /* 100% of the viewport height */
     margin: 0;
-    background-color: #f0f0f0; /* Optional background color */
+    background-color: #f0f0f0;
+    /* Optional background color */
     user-select: none;
+    overflow: hidden;
 }
 
 * {
@@ -37,40 +40,41 @@ span {
     color: blueviolet;
 }
 
-div, span {
+div,
+span {
     margin-bottom: 10px;
 }
 
 #balloon-container {
-  height: 100vh;
-  position: absolute;
-  padding: 1em;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  transition: opacity 500ms;
+    height: 100vh;
+    position: absolute;
+    padding: 1em;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    transition: opacity 500ms;
 }
 
 .balloon {
-  height: 125px;
-  width: 105px;
-  border-radius: 75% 75% 70% 70%;
-  position: relative;
+    height: 125px;
+    width: 105px;
+    border-radius: 75% 75% 70% 70%;
+    position: relative;
 }
 
 .balloon:before {
-  content: "";
-  height: 75px;
-  width: 1px;
-  padding: 1px;
-  background-color: #FDFD96;
-  display: block;
-  position: absolute;
-  top: 125px;
-  left: 0;
-  right: 0;
-  margin: auto;
+    content: "";
+    height: 75px;
+    width: 1px;
+    padding: 1px;
+    background-color: #FDFD96;
+    display: block;
+    position: absolute;
+    top: 125px;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .balloon:after {
@@ -86,10 +90,15 @@ div, span {
 }
 
 @keyframes float {
-  from {transform: translateY(100vh);
-  opacity: 1;}
-  to {transform: translateY(-300vh);
-  opacity: 0;}
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-300vh);
+        opacity: 0;
+    }
 }
 
 .firework {
@@ -106,6 +115,7 @@ div, span {
         transform: scale(1);
         opacity: 1;
     }
+
     100% {
         transform: scale(8);
         opacity: 0;
