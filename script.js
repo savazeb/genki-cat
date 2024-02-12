@@ -4,6 +4,10 @@ function random(num) {
     return Math.floor(Math.random() * num);
 }
 
+function random_range(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 function getRandomStyles() {
     var r = random(255);
     var g = random(255);
@@ -53,7 +57,7 @@ function createFireworks() {
             firework.style.top = Math.random() * window.innerHeight + "px";
             document.body.appendChild(firework);
 
-            // Remove the fireworks after 5 seconds
+            // Remove the fireworks after (n) seconds
             setTimeout(function () {
                 firework.remove();
             }, duration * 1000);
@@ -61,30 +65,46 @@ function createFireworks() {
     }
 }
 
-function moveButtonRandomly(button) {
-    var maxX = window.innerWidth - button.offsetWidth;
-    var maxY = window.innerHeight - button.offsetHeight;
+function createThunderstorm() {
+    var thunderstormContainer = document.createElement('div');
+    thunderstormContainer.id = 'thunderstorm';
 
-    var randomX = random(maxX);
-    var randomY = random(maxY);
+    document.body.appendChild(thunderstormContainer);
 
-    button.style.position = 'absolute';
-    button.style.left = randomX + 'px';
-    button.style.top = randomY + 'px';
+    const rain = setInterval(function () {
+        createRaindrop(thunderstormContainer);
+    }, 50);
+
+    setTimeout(function () {
+        clearInterval(rain);
+        thunderstormContainer.remove();
+    }, duration * 1000);
 }
 
-function createHiddenButton(referenceButton) {
-    // Check if the hidden button is already created
-    var hiddenButton = document.querySelector('#hidden-button');
-    if (!hiddenButton) {
-        hiddenButton = document.createElement("button");
-        hiddenButton.style.visibility = 'hidden';
-        hiddenButton.id = 'hidden-button';
-        hiddenButton.innerHTML = '隠し';
+// Function to create raindrops
+function createRaindrop(thunderstormContainer) {
+    const raindrop = document.createElement("div");
+    raindrop.className = "raindrop";
+    thunderstormContainer.appendChild(raindrop);
 
-        // Insert the hidden button after the "はい" button
-        referenceButton.parentNode.insertBefore(hiddenButton, referenceButton.nextSibling);
-    }
+    const startX = random_range(0, window.innerWidth);
+    const startY = random_range(-10, -5);
+    const duration = random_range(0.5, 2);
+
+    gsap.fromTo(
+        raindrop,
+        { x: startX, y: startY, opacity: 1 },
+        {
+            x: startX + 20,
+            y: window.innerHeight + 20,
+            opacity: 0,
+            duration,
+            ease: "linear",
+            onComplete: () => {
+                thunderstormContainer.removeChild(raindrop);
+            }
+        }
+    );
 }
 
 function showFunnyMessage(message) {
@@ -99,12 +119,22 @@ function showFunnyMessage(message) {
     // Remove the message after a delay
     setTimeout(function () {
         funnyMessageDiv.remove();
-    }, duration * 1000); // Remove the message after 3 seconds
+    }, duration * 1000); // Remove the message after (n) seconds
 }
 
 function showDancingCat(referenceImage) {
     // Change the gif image
     referenceImage.src = 'public/cat-state-2.gif';
+
+    // Bring back the image after delay
+    setTimeout(function () {
+        referenceImage.src = 'public/cat-state-1.gif';
+    }, duration * 1000);
+}
+
+function showCryingCat(referenceImage) {
+    // Change the gif image
+    referenceImage.src = 'public/cat-state-4.gif';
 
     // Bring back the image after delay
     setTimeout(function () {
@@ -178,18 +208,18 @@ document.addEventListener("DOMContentLoaded", function () {
         createFireworks();
 
         // Add a funny message when the "はい" button is clicked
-        showFunnyMessage("すごい！ポジティブな君に感動！💖");
+        showFunnyMessage("元気いっぱいだね！素晴らしいね 🌟");
     });
 
     // Add a click event listener to the "いいえ" button
     noButton.addEventListener('click', function () {
-        // Move the "いいえ" button to a random position
-        moveButtonRandomly(noButton);
+        // Show crying cat
+        showCryingCat(imageElement);
 
-        // Create a hidden button next to the "いいえ" button
-        createHiddenButton(noButton);
+        // Make it rain
+        createThunderstorm();
 
-        // Add a funny comment when the "いいえ" button is clicked
-        console.log("いいえ, but the 'はい' button is still there. Sneaky, sneaky! 🕵️‍♂️");
+        // Add a funny message when the "はい" button is clicked
+        showFunnyMessage("みんなの笑顔が見たいにゃん 💔");
     });
 });
