@@ -138,3 +138,19 @@ span {
     height: 20px;
     opacity: 0;
 }
+
+footer {
+    background-color: #ffd700;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #4d4d4d;
+}
