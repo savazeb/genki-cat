@@ -4,7 +4,7 @@ Welcome to Genki Cat, a fun project featuring a cheerful cat! This project incor
 
 ## Demo
 
-You can see the project in action [here](https://genki-cat.savazeb.com).
+You can see the project in action [here](https://genkicat.savazeb.com).
 
 ## How to Use
 
